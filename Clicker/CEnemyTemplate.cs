@@ -11,6 +11,7 @@ namespace Clicker
 {
     public class CEnemyTemplate
     {
+
         [JsonInclude]
         string name;
         [JsonInclude]
@@ -42,15 +43,13 @@ namespace Clicker
             spawnChance = SpawnChance;
         }
 
-        public string getName() { return name; }
-        public string getIconName() { return iconName; }
-        public int getBaseLife() { return baseLife; }
-        public double getLifeModifier() { return lifeModifier; }
-        public int getBaseGold() { return baseGold; }
-        public double getGoldModifier() { return goldModifier; }
-        public double getSpawnChance() { return spawnChance; }
-
-        
+        public string Name() { return name; }
+        public string IconName() { return iconName; }
+        public int BaseLife() { return baseLife; }
+        public double LifeModifier() { return lifeModifier; }
+        public int BaseGold() { return baseGold; }
+        public double GoldModifier() { return goldModifier; }
+        public double SpawnChance() { return spawnChance; }
 
     }
 }
