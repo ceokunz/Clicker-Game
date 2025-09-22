@@ -21,4 +21,4 @@ namespace Clicker
             InitializeComponent();
         }
     }
-}ffffff
+}

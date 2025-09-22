@@ -41,5 +41,12 @@ namespace Clicker
             goldModifier = GoldModifier;
             spawnChance = SpawnChance;
         }
+        public string Name() { return name; }
+        public string IconName() { return iconName; }
+        public int BaseLife() { return baseLife; }
+        public double LifeModifier() { return lifeModifier; }
+        public int BaseGold() { return baseGold; }
+        public double GoldModifier() { return goldModifier; }
+        public double SpawnChance() { return spawnChance; }
     }
 }
