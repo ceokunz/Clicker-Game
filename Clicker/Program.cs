@@ -1,6 +1,7 @@
 ﻿using Clicker;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -34,6 +35,21 @@ namespace Program1
             {
                 Console.WriteLine($"Name: {enemy.Name()} {enemy.IconName()}, Base: { enemy.BaseLife()} {enemy.BaseGold()}, Modifier: {enemy.LifeModifier()} {enemy.GoldModifier()}, SpawnChance: {enemy.SpawnChance()}");
             }
+            Load("/Images");
+        }
+
+        public static void Load(string path)
+        {
+            string folder = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + path;
+            string[] files = Directory.GetFiles(folder, "*.png");
+
+            Console.WriteLine($"Найдено {files.Length} PNG файлов:");
+            foreach (string file in files)
+            {
+                Console.WriteLine(Path.GetFileName(file));
+            }
+
         }
     }
-}
+}
+
