@@ -47,7 +47,7 @@ namespace Clicker
         public int getBaseLife() { return baseLife; }
         public double getLifeModifier() { return lifeModifier; }
         public int getBaseGold() { return baseGold; }
-        public double getGoldModifier() { return goldModifier; }  
+        public double getGoldModifier() { return goldModifier; }
         public double getSpawnChance() { return spawnChance; }
 
         
