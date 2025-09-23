@@ -28,7 +28,7 @@ namespace Clicker
         }
         
         public string Name() => name; //методы вроде можно свойством написать, но мяу мяу
-        public double X() => position.X;
+        public double X() => position.X; //яяя ем котяяяят МУАХАХХАХАХАХХ (комм волеры)
         public double Y() => position.Y;
         public int IconWidth() => iconWidth;
         public int IconHeight() => iconHeight;

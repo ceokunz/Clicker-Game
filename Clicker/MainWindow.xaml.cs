@@ -78,7 +78,9 @@ namespace Clicker
 
         private void Dodep(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Вы успешно депнули Злату и Валеру! Теперь они в рабстве у лабубу <3", "казино");
+            dodepik newWindow = new dodepik();
+
+            newWindow.Show();
         }
     }
 
