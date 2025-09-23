@@ -25,27 +25,8 @@ namespace Clicker
             this.position = new Point(0, 0);
             this.name = System.IO.Path.GetFileNameWithoutExtension(imagePath);
 
-            CreateIcon(imagePath);
         }
-        private void CreateIcon(string imagePath) //метод
-        {
-            icon = new Rectangle();
-            icon.Stroke = Brushes.Black; //обводка
-            icon.StrokeThickness = 1; //толщина обводки
-
-            ImageBrush ib = new ImageBrush(); 
-            ib.AlignmentX = AlignmentX.Left; //выравнивание
-            ib.AlignmentY = AlignmentY.Top;
-            ib.ImageSource = new BitmapImage(new Uri(imagePath, UriKind.Absolute));
-            ib.Stretch = Stretch.Uniform; //масштабирование
-
-            icon.RenderTransform = new TranslateTransform(position.X, position.Y); //заливка
-            icon.Fill = ib;
-            icon.HorizontalAlignment = HorizontalAlignment.Left;
-            icon.VerticalAlignment = VerticalAlignment.Top;
-            icon.Height = iconHeight;
-            icon.Width = iconWidth;
-        }
+        
         public string Name() => name; //методы вроде можно свойством написать, но мяу мяу
         public double X() => position.X;
         public double Y() => position.Y;
