@@ -40,34 +40,34 @@ namespace Clicker
             }
         }
 
-        public void CreateIcon(int iconWidth, int iconHeight, string imagePath)
-        {
-            position = new Point(0, 0);
+        //public void CreateIcon(int iconWidth, int iconHeight, string imagePath)
+        //{
+        //    position = new Point(0, 0);
 
-            name = System.IO.Path.GetFileNameWithoutExtension(imagePath);
+        //    name = System.IO.Path.GetFileNameWithoutExtension(imagePath);
 
-            icon = new Rectangle();
-            //установка цвета линии обводки и цвета заливки при помощи коллекции кистей 
-            icon.Stroke = Brushes.Black;
-            ImageBrush ib = new ImageBrush();
-            //позиция изображения будет указана как координаты левого верхнего угла 
-            //изображение будет растянуто по размерам прямоугольника, описанного вокруг фигуры 
-            ib.AlignmentX = AlignmentX.Left;
-            ib.AlignmentY = AlignmentY.Top;
+        //    icon = new Rectangle();
+        //    //установка цвета линии обводки и цвета заливки при помощи коллекции кистей 
+        //    icon.Stroke = Brushes.Black;
+        //    ImageBrush ib = new ImageBrush();
+        //    //позиция изображения будет указана как координаты левого верхнего угла 
+        //    //изображение будет растянуто по размерам прямоугольника, описанного вокруг фигуры 
+        //    ib.AlignmentX = AlignmentX.Left;
+        //    ib.AlignmentY = AlignmentY.Top;
 
-            //загрузка изображения и назначение кисти 
-            ib.ImageSource = new BitmapImage(new Uri(imagePath, UriKind.Absolute));
+        //    //загрузка изображения и назначение кисти 
+        //    ib.ImageSource = new BitmapImage(new Uri(imagePath, UriKind.Absolute));
 
-            icon.RenderTransform = new TranslateTransform(position.X, position.Y);
+        //    icon.RenderTransform = new TranslateTransform(position.X, position.Y);
 
-            icon.Fill = ib;
-            //параметры выравнивания 
-            icon.HorizontalAlignment = HorizontalAlignment.Left;
-            icon.VerticalAlignment = VerticalAlignment.Center;
-            //размеры прямоугольника 
-            icon.Height = iconHeight;
-            icon.Width = iconWidth;
-        }
+        //    icon.Fill = ib;
+        //    //параметры выравнивания 
+        //    icon.HorizontalAlignment = HorizontalAlignment.Left;
+        //    icon.VerticalAlignment = VerticalAlignment.Center;
+        //    //размеры прямоугольника 
+        //    icon.Height = iconHeight;
+        //    icon.Width = iconWidth;
+        //}
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
