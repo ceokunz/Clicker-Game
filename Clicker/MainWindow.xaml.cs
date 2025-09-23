@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,9 +29,9 @@ namespace Clicker
         public void Load(string path)
         {
 
-            string folder =
+            string folder = 
             System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + path;
-            //фильтр расширения изображения 
+
             string filter = "*.png";
             //получение массива строк содержащих пути до изображений 
             string[] files = Directory.GetFiles(folder, filter);
@@ -75,6 +76,10 @@ namespace Clicker
             Point mousePosition = Mouse.GetPosition(scene);
         }
 
+        private void Dodep(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Вы успешно депнули Злату и Валеру! Теперь они в рабстве у лабубу <3", "казино");
+        }
     }
 
 }
