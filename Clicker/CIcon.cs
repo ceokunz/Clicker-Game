@@ -12,7 +12,7 @@ namespace Clicker
 {
     public class CIcon
     {
-        private string name;
+        private string name; //поля класса, по полям по полям 
         private int iconWidth;
         private int iconHeight;
         private Point position;
@@ -46,7 +46,7 @@ namespace Clicker
             icon.Height = iconHeight;
             icon.Width = iconWidth;
         }
-        public string Name() => name;
+        public string Name() => name; //методы вроде можно свойством написать, но мяу мяу
         public double X() => position.X;
         public double Y() => position.Y;
         public int IconWidth() => iconWidth;
