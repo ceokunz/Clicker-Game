@@ -11,6 +11,7 @@ namespace Clicker
 {
     public class CEnemyTemplate
     {
+
         [JsonInclude]
         string name;
         [JsonInclude]

@@ -5,8 +5,128 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Clicker"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Editor_v0.1" Height="423" Width="825" ResizeMode="NoResize" MouseDown="Window_MouseDown">
     <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="5*"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0"> <!--///-->
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="List of enemies:" Height="30"></TextBlock>
+            <ListBox Grid.Row="1" Margin="5"/>
+            <UniformGrid Grid.Row="2" Columns="2" Height="40">
+                <Button Content="SAVE" Margin="5"/>
+                <Button Content="LOAD" Margin="5"/>
+            </UniformGrid>
+
+        </Grid>
+
+        <Grid Grid.Column="1"> <!--///-->
+
+            <Grid.RowDefinitions>
+                <!--добавляю три ряда-->
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <!--в 1 ряд добавляю 2 колонны-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Enemy icon:" Width="200" Height="50" Background="White"></TextBlock>
+                    <Canvas Name="scene" Grid.Row="1" Width="100" Height="100" Margin="10" Background="#FFE6E6E6" HorizontalAlignment="Left"></Canvas>
+
+                </Grid>
+
+                <Grid Grid.Column="1">
+                    <UniformGrid Columns="1">
+                        <TextBlock Text="Icon name:"></TextBlock>
+                        <TextBlock Margin="10" Background="#FFEDEDED"></TextBlock>
+                        <TextBlock Text="Enemy name:"></TextBlock>
+                        <TextBox Margin="10"></TextBox>
+                    </UniformGrid>
+                </Grid>
+
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <!--Фигачу второй ряд-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <UniformGrid Grid.Column="0" Columns="1">
+                    <TextBlock Text="Base life:"></TextBlock>
+                    <TextBox Margin="5"></TextBox>
+                    <TextBlock Text="Life modifier:"></TextBlock>
+                    <TextBox Margin="5"></TextBox>
+                    <TextBlock Text="Spawn chance (1-100):"></TextBlock>
+                </UniformGrid>
+
+                <UniformGrid Grid.Column="1" Columns="1">
+                    <TextBlock Text="Base gold:"></TextBlock>
+                    <TextBox Margin="5"></TextBox>
+                    <TextBlock Text="Gold modifier:"></TextBlock>
+                    <TextBox Margin="5"></TextBox>
+                    <TextBlock></TextBlock>
+                    <!--Загадочные обстоятельства-->
+                </UniformGrid>
+
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <!--Третий ряд для моих похорон я уже хочу умереть пожалуйста-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <TextBox Width="200" Height="50" Margin="5"></TextBox>
+
+                <UniformGrid Grid.Column="1" Rows="1">
+                    <Button Content="ADD" Margin="5"></Button>
+                    <Button Content="REMOVE" Margin="5"></Button>
+                </UniformGrid>
+            </Grid>
+
+        </Grid>
+
+        <Grid Grid.Column="2"> <!--///-->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <UniformGrid Grid.Row="0">
+                <Canvas Grid.Row="1" Width="100" Height="100" Margin="10" Background="#FFE6E6E6"></Canvas>
+                <Canvas Grid.Row="1" Width="100" Height="100" Margin="10" Background="#FFE6E6E6"></Canvas>
+                <Canvas Grid.Row="1" Width="100" Height="100" Margin="10" Background="#FFE6E6E6"></Canvas>
+                <Canvas Grid.Row="1" Width="100" Height="100" Margin="10" Background="#FFE6E6E6"></Canvas>
+            </UniformGrid>
+
+            <Button Grid.Row="1" Margin="10" Content="ДЕПНУТЬ ЗЛАТУ И ВАЛЕРУ В КАЗИК" Click="Button_Click"/>
+        </Grid>
 
     </Grid>
 </Window>
