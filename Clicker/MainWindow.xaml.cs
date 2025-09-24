@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using Microsoft.Win32;
+using System.Configuration;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -21,54 +23,57 @@ namespace Clicker
     /// </summary>
     public partial class MainWindow : Window
     {
+        public List<IconItem> IconList { get; set; }
         public MainWindow()
         {
             InitializeComponent();
+
+            this.DataContext = this;
+            IconList = new List<IconItem>();
+
+            string path = ConfigurationManager.AppSettings["pathToImages"];
+
+            if (path != "")
+            {
+                if (Directory.Exists(path))
+                {
+                    Load(ConfigurationManager.AppSettings["pathToImages"]);
+
+                }
+            }
+            else
+            {
+                OpenFolderDialog choofdlog = new OpenFolderDialog();
+
+                if ((bool)choofdlog.ShowDialog())
+                {
+                    Load(choofdlog.FolderName);
+
+                    var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
+                    // Устанавливаем новое значение для ключа "pathToImages"
+                    config.AppSettings.Settings["pathToImages"].Value = choofdlog.FolderName;
+
+                    // Сохраняем изменения и обновляем конфигурацию приложения
+                    config.Save(ConfigurationSaveMode.Modified);
+                    ConfigurationManager.RefreshSection("appSettings");
+                }
+            }
+
+            IconListBox.ItemsSource = IconList;
         }
+
+        
 
         public void Load(string path)
         {
-
-            string folder = 
-            System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + path;
-
             string filter = "*.png";
-            //получение массива строк содержащих пути до изображений 
-            string[] files = Directory.GetFiles(folder, filter);
+            string[] files = Directory.GetFiles(path, filter);
             foreach (string file in files)
             {
-                //в file содержится путь до изображения с расширением .png 
+                IconList.Add(new IconItem(file));
             }
         }
-
-        //public void CreateIcon(int iconWidth, int iconHeight, string imagePath)
-        //{
-        //    position = new Point(0, 0);
-
-        //    name = System.IO.Path.GetFileNameWithoutExtension(imagePath);
-
-        //    icon = new Rectangle();
-        //    //установка цвета линии обводки и цвета заливки при помощи коллекции кистей 
-        //    icon.Stroke = Brushes.Black;
-        //    ImageBrush ib = new ImageBrush();
-        //    //позиция изображения будет указана как координаты левого верхнего угла 
-        //    //изображение будет растянуто по размерам прямоугольника, описанного вокруг фигуры 
-        //    ib.AlignmentX = AlignmentX.Left;
-        //    ib.AlignmentY = AlignmentY.Top;
-
-        //    //загрузка изображения и назначение кисти 
-        //    ib.ImageSource = new BitmapImage(new Uri(imagePath, UriKind.Absolute));
-
-        //    icon.RenderTransform = new TranslateTransform(position.X, position.Y);
-
-        //    icon.Fill = ib;
-        //    //параметры выравнивания 
-        //    icon.HorizontalAlignment = HorizontalAlignment.Left;
-        //    icon.VerticalAlignment = VerticalAlignment.Center;
-        //    //размеры прямоугольника 
-        //    icon.Height = iconHeight;
-        //    icon.Width = iconWidth;
-        //}
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {

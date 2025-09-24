@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Clicker"
         mc:Ignorable="d"
-        Title="Editor_v0.1" Height="423" Width="825" ResizeMode="NoResize" MouseDown="Window_MouseDown">
+        Title="Editor_v0.1" Height="423" Width="825"  MouseDown="Window_MouseDown">
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -23,7 +23,7 @@
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0" Text="List of enemies:" Height="30"></TextBlock>
-            <ListBox Grid.Row="1" Margin="5"/>
+            <ListBox Name="IconListBox" Grid.Row="1" Margin="5"/>
             <UniformGrid Grid.Row="2" Columns="2" Height="40">
                 <Button Content="SAVE" Margin="5"/>
                 <Button Content="LOAD" Margin="5"/>
@@ -118,11 +118,8 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
-            <UniformGrid Grid.Row="0">
-                <Canvas Grid.Row="1" Width="100" Height="100" Margin="10" Background="#FFE6E6E6"></Canvas>
-                <Canvas Grid.Row="1" Width="100" Height="100" Margin="10" Background="#FFE6E6E6"></Canvas>
-                <Canvas Grid.Row="1" Width="100" Height="100" Margin="10" Background="#FFE6E6E6"></Canvas>
-                <Canvas Grid.Row="1" Width="100" Height="100" Margin="10" Background="#FFE6E6E6"></Canvas>
+            <UniformGrid Height="200" Grid.Row="0" Name="TempNameGrid">
+                
             </UniformGrid>
 
             <Button Grid.Row="1" Margin="10" Content="ДЕПНУТЬ ЗЛАТУ И ВАЛЕРУ В КАЗИК" Click="Dodep"/>

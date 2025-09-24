@@ -12,11 +12,12 @@ namespace Clicker
 {
     public class CIcon
     {
-        private string name; //поля класса, по полям по полям 
+        private string name; //поля класса, по полям по полям
         private int iconWidth;
         private int iconHeight;
         private Point position;
         private Rectangle icon;
+        private string iconPath;
 
         public CIcon(int iconWidth, int iconHeight, string imagePath)
         {
@@ -33,6 +34,7 @@ namespace Clicker
         public int IconWidth() => iconWidth;
         public int IconHeight() => iconHeight;
         public Rectangle GetIcon() => icon;
+        public string IconPath() => iconPath;
 
         public void SetPosition(Point newPosition)
         {
