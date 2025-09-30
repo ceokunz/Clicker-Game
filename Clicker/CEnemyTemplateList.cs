@@ -17,11 +17,9 @@ namespace Clicker
             enemies = new List<CEnemyTemplate>();
         }
 
-        public void addEnemy(string Name, string IconName, int BaseLife, double LifeModifier, int BaseGold, double GoldModifier, double SpawnChance)
+        public void addEnemy(CEnemyTemplate enemy)
         {
-            CEnemyTemplate enemy = new CEnemyTemplate(Name, IconName, BaseLife, LifeModifier, BaseGold, GoldModifier, SpawnChance);
             enemies.Add(enemy);
-
         }
         public CEnemyTemplate getEnemyByName(string Name)
         {
@@ -64,6 +62,8 @@ namespace Clicker
             }
             return names;
         }
+
+        public List<CEnemyTemplate> GetEnemies() { return enemies; }
 
         public void saveToJson(string path)
         {

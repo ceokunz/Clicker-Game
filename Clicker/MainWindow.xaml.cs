@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
+using IOPath = System.IO.Path;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
@@ -18,12 +19,11 @@ using static System.Formats.Asn1.AsnWriter;
 
 namespace Clicker
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public List<IconItem> IconList { get; set; }
+        private CEnemyTemplateList enemyList = new CEnemyTemplateList();
+        private string selectedIconPath = null;
         public MainWindow()
         {
             InitializeComponent();
@@ -60,10 +60,17 @@ namespace Clicker
                 }
             }
 
-            IconListBox.ItemsSource = IconList;
+            EnemyListBox.ItemsSource = IconList;
         }
 
-        
+        private void UpdateEnemiesList()
+        {
+            EnemyListBox.Items.Clear();
+            foreach (var enemy in enemyList.GetEnemies())
+            {
+                EnemyListBox.Items.Add($"{enemy.Name()} (Иконка: {enemy.IconName()})");
+            }
+        }
 
         public void Load(string path)
         {
@@ -86,6 +93,154 @@ namespace Clicker
             dodepik newWindow = new dodepik();
 
             newWindow.Show();
+        }
+
+        private void Button_SaveToJson(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog dlg = new SaveFileDialog();
+            dlg.FileName = "enemies";
+            dlg.DefaultExt = ".json";
+            dlg.Filter = "JSON files (*.json)|*.json";
+
+            if (dlg.ShowDialog() == true)
+            {
+                try
+                {
+                    CEnemyTemplateList enemyList = new CEnemyTemplateList();
+                    enemyList.saveToJson(dlg.FileName);
+                    MessageBox.Show("Список успешно сохранен", "Хлопаем стоя");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка сохранения: {ex.Message}", "Кринжанул");
+                }
+            }
+        }
+
+        private void Button_LoadFromJson(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.DefaultExt = ".json";
+            dlg.Filter = "JSON files (*.json)|*.json";
+
+            if (dlg.ShowDialog() == true)
+            {
+                try
+                {
+                    CEnemyTemplateList enemyList = new CEnemyTemplateList();
+                    enemyList.loadFromJson(dlg.FileName);
+                    UpdateEnemiesList();
+                    ClearForm();
+                    MessageBox.Show("Список успешно загружен", "Успех");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка загрузки: {ex.Message}", "Ошибка");
+                }
+            }
+        }
+
+        private void ClearForm()
+        {
+            EnemyNameBox.Clear();
+            IconNameBox.Clear();
+            BaseLifeBox.Text = " ";
+            LifeModBox.Text = " ";
+            BaseGoldBox.Text = " ";
+            GoldModBox.Text = " ";
+            SpawnChanceBox.Text = " ";
+            scene.Children.Clear();
+
+            selectedIconPath = null;
+        }
+
+        private void Button_AddEnemy(object sender, RoutedEventArgs e)
+        {
+            AddEnemy();
+        }
+
+        private void AddEnemy()
+        {
+            if (string.IsNullOrEmpty(selectedIconPath) || !File.Exists(selectedIconPath))
+            {
+                MessageBox.Show("Выберите иконку", "Предупреждение");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(EnemyNameBox.Text))
+            {
+                MessageBox.Show("Введите имя врага", "Ошибка");
+                return;
+            }
+
+            try
+            {
+                string iconName = IOPath.GetFileNameWithoutExtension(selectedIconPath);
+
+                if (!int.TryParse(BaseLifeBox.Text, out int baseLife) || baseLife < 0)
+                {
+                    MessageBox.Show("Введите верное значение здоровья (целое число >= 0)", "Ошибка");
+                    return;
+                }
+
+                if (!double.TryParse(LifeModBox.Text, out double lifeModifier) || lifeModifier < 0)
+                {
+                    MessageBox.Show("Введите верный модификатор здоровья (число >= 0)", "Ошибка");
+                    return;
+                }
+
+                if (!int.TryParse(BaseGoldBox.Text, out int baseGold) || baseGold < 0)
+                {
+                    MessageBox.Show("Введите верное значение золота (целое число >= 0)", "Ошибка");
+                    return;
+                }
+
+                if (!double.TryParse(GoldModBox.Text, out double goldModifier) || goldModifier < 0)
+                {
+                    MessageBox.Show("Введите верный модификатор золота (число >= 0)", "Ошибка");
+                    return;
+                }
+
+                if (!double.TryParse(SpawnChanceBox.Text, out double spawnChance) || spawnChance < 0 || spawnChance > 1)
+                {
+                    MessageBox.Show("Введите верный шанс появления (от 0 до 1)", "Ошибка");
+                    return;
+                }
+
+
+                CEnemyTemplate enemy = new CEnemyTemplate(EnemyNameBox.Text.Trim(),
+                    iconName,
+                    baseLife,
+                    lifeModifier,
+                    baseGold,
+                    goldModifier,
+                    spawnChance);
+
+                enemyList.addEnemy(enemy);
+                UpdateEnemiesList();
+                ClearForm();
+
+                MessageBox.Show("Враг успешно добавлен", "Успех");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка");
+            }
+        }
+
+        private void Button_RemoveEnemy(object sender, RoutedEventArgs e)
+        {
+            if (EnemyListBox.SelectedIndex >= 0 && EnemyListBox.SelectedIndex < enemyList.GetEnemies().Count)
+            {
+                enemyList.deleteEnemyByIndex(EnemyListBox.SelectedIndex);
+                UpdateEnemiesList();
+                ClearForm();
+                MessageBox.Show("Враг дезинтегрирован", "Информация");
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите врага для удаления", "Предупреждение");
+            }
         }
     }
 
