@@ -12,15 +12,20 @@
     <None Remove="icons\items\boom.png" />
     <None Remove="icons\Monsters\goblin_1.png" />
     <None Remove="icons\Monsters\goblin_5.png" />
+    <None Remove="icons\Monsters\goblin_7.png" />
+    <None Remove="icons\Monsters\goblin_8.png" />
+    <None Remove="icons\Monsters\skeleton_1.png" />
+    <None Remove="icons\Monsters\skeleton_2.png" />
+    <None Remove="icons\Monsters\troll_1.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="icons\Monsters\goblin_1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Content Include="icons\Monsters\goblin_5.png">
+    <Resource Include="icons\Monsters\goblin_5.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
@@ -29,6 +34,21 @@
 
   <ItemGroup>
     <Resource Include="icons\items\boom.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="icons\Monsters\goblin_7.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="icons\Monsters\goblin_8.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="icons\Monsters\skeleton_1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="icons\Monsters\skeleton_2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="icons\Monsters\troll_1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
