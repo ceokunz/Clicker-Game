@@ -68,7 +68,7 @@ namespace Clicker
             EnemyListBox.Items.Clear();
             foreach (var enemy in enemyList.GetEnemies())
             {
-                EnemyListBox.Items.Add($"{enemy.Name()} (Иконка: {enemy.IconName()})");
+                EnemyListBox.Items.Add($"{enemy.Name} (Иконка: {enemy.IconName})");
             }
         }
 
@@ -80,12 +80,6 @@ namespace Clicker
             {
                 IconList.Add(new IconItem(file));
             }
-        }
-
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            //получение координат мыши в координатах объекта Canvas с именем scene 
-            Point mousePosition = Mouse.GetPosition(scene);
         }
 
         private void Dodep(object sender, RoutedEventArgs e)
@@ -242,6 +236,40 @@ namespace Clicker
                 MessageBox.Show("Пожалуйста, выберите врага для удаления", "Предупреждение");
             }
         }
+
+        private void IconListBox_OnMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            (EnemyListBox.SelectedItem as CEnemyTemplate)!.IconName = (IconListBox.Items.CurrentItem as IconItem)!.IconPath;
+        }
+
+        private void IconListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (IconListBox.SelectedItem != null)
+                (EnemyListBox.SelectedItem as CEnemyTemplate)!.IconName = (IconListBox.SelectedItem as IconItem)!.IconPath;
+        }
+
+        //private void EnemyListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    IconListBox.SelectedItem = null; //TODO: Make it more nice
+
+        //    //var t = GetType((EnemyListBox.SelectedItem as EnemyTemplate).Armor;
+
+        //    if (EnemyListBox.SelectedItem != null)
+        //    {
+        //        foreach (IArmor arm in ArmorTypeComboBox.Items)
+        //        {
+        //            if ((EnemyListBox.SelectedItem as EnemyTemplate).Armor?.GetType() == arm.GetType())
+        //            {
+        //                ArmorTypeComboBox.SelectedIndex = ArmorTypeComboBox.Items.IndexOf(arm);
+        //            }
+        //        }
+
+
+        //        //((EnemyListBox.SelectedItem as EnemyTemplate).Armor);
+        //    }
+
+        //}
+
     }
 
 }

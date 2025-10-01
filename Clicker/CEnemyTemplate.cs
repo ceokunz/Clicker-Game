@@ -11,25 +11,17 @@ namespace Clicker
 {
     public class CEnemyTemplate
     {
-
-        [JsonInclude]
         string name;
-        [JsonInclude]
         string iconName;
 
         //Атрибуты здоровья
-        [JsonInclude]
         int baseLife;
-        [JsonInclude]
         double lifeModifier;
 
         //Атрибуты золота за победу над противником
-        [JsonInclude]
         int baseGold;
-        [JsonInclude]
         double goldModifier;
 
-        [JsonInclude]
         double spawnChance; //Шанс на появление
 
         public CEnemyTemplate(string Name, string IconName, int BaseLife, double LifeModifier, int BaseGold, double GoldModifier, double SpawnChance)
@@ -42,12 +34,53 @@ namespace Clicker
             goldModifier = GoldModifier;
             spawnChance = SpawnChance;
         }
-        public string Name() { return name; }
-        public string IconName() { return iconName; }
-        public int BaseLife() { return baseLife; }
-        public double LifeModifier() { return lifeModifier; }
-        public int BaseGold() { return baseGold; }
-        public double GoldModifier() { return goldModifier; }
-        public double SpawnChance() { return spawnChance; }
+
+        //свойства---------------------------------------------------------
+        
+        [JsonInclude]
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+        
+        [JsonInclude]
+
+        public string IconName
+        {
+            get { return iconName; }
+            set { iconName = value; }
+        }
+        [JsonInclude]
+        public int BaseLife
+        {
+            get { return baseLife; }
+            set { baseLife = value; }
+        }
+        [JsonInclude]
+        public double LifeModifier
+        {
+            get { return lifeModifier; }
+            set { lifeModifier = value; }
+        }
+        [JsonInclude]
+        public int BaseGold
+        {
+            get { return baseGold; }
+            set { baseGold = value; }
+        }
+        [JsonInclude]
+        public double GoldModifier
+        {
+            get { return goldModifier; }    
+            set { goldModifier = value; }
+        }
+        [JsonInclude]
+        public double SpawnChance
+        {
+            get { return spawnChance; }
+            set { spawnChance = value; }
+
+        }
     }
 }

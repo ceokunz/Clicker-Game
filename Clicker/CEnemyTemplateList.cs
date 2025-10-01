@@ -25,7 +25,7 @@ namespace Clicker
         {
             foreach (CEnemyTemplate enemy in enemies)
             {
-                if (enemy.Name() == Name)
+                if (enemy.Name == Name)
                 {
                     return enemy;
                 }
@@ -42,7 +42,7 @@ namespace Clicker
         }
         public void deleteEnemyByName(string Name)
         {
-            enemies.RemoveAll(enemy => enemy.Name() == Name);
+            enemies.RemoveAll(enemy => enemy.Name == Name);
         }
         public void deleteEnemyByIndex(int Id)
         {
@@ -58,7 +58,7 @@ namespace Clicker
 
             foreach (CEnemyTemplate enemy in enemies)
             {
-                names.Add(enemy.Name());
+                names.Add(enemy.Name);
             }
             return names;
         }
