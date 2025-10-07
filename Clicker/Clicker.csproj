@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <None Remove="icons\items\boom.png" />
+    <None Remove="icons\items\dr.png" />
     <None Remove="icons\Monsters\goblin_1.png" />
     <None Remove="icons\Monsters\goblin_5.png" />
     <None Remove="icons\Monsters\goblin_7.png" />
@@ -20,6 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="icons\items\dr.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="icons\Monsters\goblin_1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

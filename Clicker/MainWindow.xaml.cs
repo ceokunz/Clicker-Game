@@ -34,33 +34,35 @@ namespace Clicker
             IconList = new List<IconItem>();
             EnemyList = new CEnemyTemplateList();
 
-            string path = ConfigurationManager.AppSettings["pathToImages"];
-
-            if (path != "")
+            try
             {
-                if (Directory.Exists(path))
-                {
-                    Load(ConfigurationManager.AppSettings["pathToImages"]);
+                string path = ConfigurationManager.AppSettings["pathToImages"];
 
+                if (!string.IsNullOrEmpty(path) && Directory.Exists(path))
+                {
+                    Load(path);
                 }
+                else
+                {
+                    var choofdlog = new OpenFolderDialog();
+                    if (choofdlog.ShowDialog() == true)
+                    {
+                        Load(choofdlog.FolderName);
+
+                        var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                        config.AppSettings.Settings["pathToImages"].Value = choofdlog.FolderName;
+                        config.Save(ConfigurationSaveMode.Modified);
+                        ConfigurationManager.RefreshSection("appSettings");
+                    }
+                }
+
+                IconListBox.ItemsSource = IconList;
+                EnemyListBox.ItemsSource = EnemyList.GetEnemies();
             }
-            else
+            catch (Exception ex)
             {
-                OpenFolderDialog choofdlog = new OpenFolderDialog();
+                MessageBox.Show($"Ошибка при запуске: {ex.Message}\n\n{ex.StackTrace}", "это полный какиш бро");
 
-                if ((bool)choofdlog.ShowDialog())
-                {
-                    Load(choofdlog.FolderName);
-
-                    var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-
-                    // Устанавливаем новое значение для ключа "pathToImages"
-                    config.AppSettings.Settings["pathToImages"].Value = choofdlog.FolderName;
-
-                    // Сохраняем изменения и обновляем конфигурацию приложения
-                    config.Save(ConfigurationSaveMode.Modified);
-                    ConfigurationManager.RefreshSection("appSettings");
-                }
             }
 
             IconListBox.ItemsSource = IconList;
