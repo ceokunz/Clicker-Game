@@ -22,7 +22,9 @@ namespace Clicker
     public partial class MainWindow : Window
     {
         public List<IconItem> IconList { get; set; }
-        private CEnemyTemplateList enemyList = new CEnemyTemplateList();
+
+        public CEnemyTemplateList EnemyList { get; set; }
+
         private string selectedIconPath = null;
         public MainWindow()
         {
@@ -30,6 +32,7 @@ namespace Clicker
 
             this.DataContext = this;
             IconList = new List<IconItem>();
+            EnemyList = new CEnemyTemplateList();
 
             string path = ConfigurationManager.AppSettings["pathToImages"];
 
@@ -66,7 +69,7 @@ namespace Clicker
         private void UpdateEnemiesList()
         {
             EnemyListBox.Items.Clear();
-            foreach (var enemy in enemyList.GetEnemies())
+            foreach (var enemy in EnemyList.GetEnemies())
             {
                 EnemyListBox.Items.Add($"{enemy.Name} (Иконка: {enemy.IconName})");
             }
@@ -157,7 +160,7 @@ namespace Clicker
         {
             if (string.IsNullOrEmpty(selectedIconPath) || !File.Exists(selectedIconPath))
             {
-                MessageBox.Show("Выберите иконку", "Предупреждение");
+                MessageBox.Show("Выберите иконку", "Ошибка");
                 return;
             }
 
@@ -210,7 +213,7 @@ namespace Clicker
                     goldModifier,
                     spawnChance);
 
-                enemyList.addEnemy(enemy);
+                EnemyList.addEnemy(enemy);
                 UpdateEnemiesList();
                 ClearForm();
 
@@ -224,9 +227,9 @@ namespace Clicker
 
         private void Button_RemoveEnemy(object sender, RoutedEventArgs e)
         {
-            if (EnemyListBox.SelectedIndex >= 0 && EnemyListBox.SelectedIndex < enemyList.GetEnemies().Count)
+            if (EnemyListBox.SelectedIndex >= 0 && EnemyListBox.SelectedIndex < EnemyList.GetEnemies().Count)
             {
-                enemyList.deleteEnemyByIndex(EnemyListBox.SelectedIndex);
+                EnemyList.deleteEnemyByIndex(EnemyListBox.SelectedIndex);
                 UpdateEnemiesList();
                 ClearForm();
                 MessageBox.Show("Враг дезинтегрирован", "Информация");
@@ -248,28 +251,10 @@ namespace Clicker
                 (EnemyListBox.SelectedItem as CEnemyTemplate)!.IconName = (IconListBox.SelectedItem as IconItem)!.IconPath;
         }
 
-        //private void EnemyListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    IconListBox.SelectedItem = null; //TODO: Make it more nice
-
-        //    //var t = GetType((EnemyListBox.SelectedItem as EnemyTemplate).Armor;
-
-        //    if (EnemyListBox.SelectedItem != null)
-        //    {
-        //        foreach (IArmor arm in ArmorTypeComboBox.Items)
-        //        {
-        //            if ((EnemyListBox.SelectedItem as EnemyTemplate).Armor?.GetType() == arm.GetType())
-        //            {
-        //                ArmorTypeComboBox.SelectedIndex = ArmorTypeComboBox.Items.IndexOf(arm);
-        //            }
-        //        }
-
-
-        //        //((EnemyListBox.SelectedItem as EnemyTemplate).Armor);
-        //    }
-
-        //}
-
+        private void EnemyListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            IconListBox.SelectedItem = null;
+        }
     }
 
 }

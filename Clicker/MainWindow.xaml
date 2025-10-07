@@ -24,7 +24,7 @@
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0" Text="List of enemies:" Height="30"></TextBlock>
-            <ListBox Name="EnemyListBox" Grid.Row="1" Margin="5"/>
+            <ListBox Name="EnemyListBox" Grid.Row="1" Margin="5" ItemsSource="{Binding enemies}" SelectionChanged="EnemyListBox_SelectionChanged"/>
             <UniformGrid Grid.Row="2" Columns="2" Height="40">
                 <Button Click="Button_SaveToJson" Content="SAVE" Margin="5,5,4,5"/>
                 <Button Click="Button_LoadFromJson" Content="LOAD" Margin="5"/>
@@ -63,9 +63,9 @@
                 <Grid Grid.Column="1">
                     <UniformGrid Columns="1">
                         <TextBlock Text="Icon name:"></TextBlock>
-                        <TextBox Name="IconNameBox" Margin="10" Background="#FFEDEDED" IsReadOnly="True"></TextBox>
+                        <TextBox Name="IconNameBox" Margin="10" Background="#FFEDEDED" IsReadOnly="True" Text="{Binding ElementName=EnemyListBox, Path=SelectedItem.IconName, Mode=TwoWay}"></TextBox>
                         <TextBlock Text="Enemy name:"></TextBlock>
-                        <TextBox Name="EnemyNameBox" Margin="10"></TextBox>
+                        <TextBox Name="EnemyNameBox" Margin="10" Text="{Binding ElementName=EnemyListBox, Path=SelectedItem.Name, Mode=TwoWay}"></TextBox>
                     </UniformGrid>
                 </Grid>
 
@@ -80,17 +80,17 @@
 
                 <UniformGrid Grid.Column="0" Columns="1">
                     <TextBlock Text="Base life:"></TextBlock>
-                    <TextBox Name="BaseLifeBox" Margin="5"></TextBox>
+                    <TextBox Name="BaseLifeBox" Margin="5" Text="{Binding ElementName=EnemyListBox, Path=SelectedItem.BaseLife, Mode=TwoWay}"></TextBox>
                     <TextBlock Text="Life modifier:"></TextBlock>
-                    <TextBox Name="LifeModBox" Margin="5"></TextBox>
+                    <TextBox Name="LifeModBox" Margin="5" Text="{Binding ElementName=EnemyListBox, Path=SelectedItem.LifeModifier, Mode=TwoWay}"></TextBox>
                     <TextBlock Text="Spawn chance (1-100):"></TextBlock>
                 </UniformGrid>
 
                 <UniformGrid Grid.Column="1" Columns="1">
                     <TextBlock Text="Base gold:"></TextBlock>
-                    <TextBox Name="BaseGoldBox" Margin="5"></TextBox>
+                    <TextBox Name="BaseGoldBox" Margin="5" Text="{Binding ElementName=EnemyListBox, Path=SelectedItem.BaseGold, Mode=TwoWay}"></TextBox>
                     <TextBlock Text="Gold modifier:"></TextBlock>
-                    <TextBox Name="GoldModBox" Margin="5"></TextBox>
+                    <TextBox Name="GoldModBox" Margin="5" Text="{Binding ElementName=EnemyListBox, Path=SelectedItem.GoldModifier, Mode=TwoWay}"></TextBox>
                     <TextBlock></TextBlock>
                     <!--Загадочные обстоятельства-->
                 </UniformGrid>
