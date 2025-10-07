@@ -24,7 +24,7 @@
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0" Text="List of enemies:" Height="30"></TextBlock>
-            <ListBox Name="EnemyListBox" Grid.Row="1" Margin="5" ItemsSource="{Binding enemies}" SelectionChanged="EnemyListBox_SelectionChanged"/>
+            <ListBox Name="EnemyListBox" Grid.Row="1" Margin="5" ItemsSource="{Binding EnemyList.enemies}" SelectionChanged="EnemyListBox_SelectionChanged"/>
             <UniformGrid Grid.Row="2" Columns="2" Height="40">
                 <Button Click="Button_SaveToJson" Content="SAVE" Margin="5,5,4,5"/>
                 <Button Click="Button_LoadFromJson" Content="LOAD" Margin="5"/>

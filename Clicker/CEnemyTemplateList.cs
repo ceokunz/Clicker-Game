@@ -11,7 +11,8 @@ namespace Clicker
     public class CEnemyTemplateList
     {
 
-        private List<CEnemyTemplate> enemies;
+        public List<CEnemyTemplate> enemies
+        { get; private set; } = new();
         public CEnemyTemplateList()
         {
             enemies = new List<CEnemyTemplate>();

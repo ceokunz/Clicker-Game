@@ -23,7 +23,7 @@ namespace Clicker
     {
         public List<IconItem> IconList { get; set; }
 
-        public CEnemyTemplateList EnemyList { get; set; }
+        public CEnemyTemplateList EnemyList { get; set; } = new();
 
         private string selectedIconPath = null;
         public MainWindow()
@@ -63,16 +63,14 @@ namespace Clicker
                 }
             }
 
-            EnemyListBox.ItemsSource = IconList;
+            IconListBox.ItemsSource = IconList;
+            EnemyListBox.ItemsSource = EnemyList.GetEnemies();
         }
 
         private void UpdateEnemiesList()
         {
-            EnemyListBox.Items.Clear();
-            foreach (var enemy in EnemyList.GetEnemies())
-            {
-                EnemyListBox.Items.Add($"{enemy.Name} (Иконка: {enemy.IconName})");
-            }
+            EnemyListBox.ItemsSource = null;
+            EnemyListBox.ItemsSource = EnemyList.GetEnemies();
         }
 
         public void Load(string path)
@@ -172,7 +170,7 @@ namespace Clicker
 
             try
             {
-                string iconName = IOPath.GetFileNameWithoutExtension(selectedIconPath);
+                string iconName = System.IO.Path.GetFileName(selectedIconPath);
 
                 if (!int.TryParse(BaseLifeBox.Text, out int baseLife) || baseLife < 0)
                 {
