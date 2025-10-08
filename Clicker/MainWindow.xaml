@@ -5,7 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Clicker"
         mc:Ignorable="d"
-        Title="POPAKAKA" Height="423" Width="825">
+        Title="POPAKAKA" Height="423" Width="825"
+        >
+
+    <Window.Resources>
+        <local:ImagePathToImageSourceConverter x:Key="ImagePathToImageSourceConverter"/>
+    </Window.Resources>
+    
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -56,7 +62,7 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Text="Enemy icon:" Width="200" Height="50" Background="White"></TextBlock>
-                    <Image Name="scene" Grid.Row="1" Width="100" Height="100" Margin="10" HorizontalAlignment="Left" Source="{Binding ElementName=EnemyListBox, Path=SelectedItem.IconName}"/>
+                    <Image Name="scene" Grid.Row="1" Width="100" Height="100" Margin="10" HorizontalAlignment="Left" Source="{Binding ElementName=EnemyListBox, Path=SelectedItem.IconName Converter={StaticResource ImagePathToImageSourceConverter}}"/>
 
                 </Grid>
 

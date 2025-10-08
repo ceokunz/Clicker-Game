@@ -5,18 +5,11 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.IO;
-using System.ComponentModel;
 
 namespace Clicker
 {
-    public class CEnemyTemplateList : INotifyPropertyChanged
+    public class CEnemyTemplateList
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
 
         public List<CEnemyTemplate> enemies
         { get; private set; } = new();
