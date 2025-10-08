@@ -146,7 +146,7 @@ namespace Clicker
             BaseGoldBox.Text = " ";
             GoldModBox.Text = " ";
             SpawnChanceBox.Text = " ";
-            scene.Children.Clear();
+            scene.Source = null;
 
             selectedIconPath = null;
         }
@@ -158,12 +158,7 @@ namespace Clicker
 
         private void AddEnemy()
         {
-            if (string.IsNullOrEmpty(selectedIconPath) || !File.Exists(selectedIconPath))
-            {
-                MessageBox.Show("Выберите иконку", "Ошибка");
-                return;
-            }
-
+           
             if (string.IsNullOrWhiteSpace(EnemyNameBox.Text))
             {
                 MessageBox.Show("Введите имя врага", "Ошибка");
@@ -247,13 +242,21 @@ namespace Clicker
 
         private void IconListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (IconListBox.SelectedItem != null)
-                (EnemyListBox.SelectedItem as CEnemyTemplate)!.IconName = (IconListBox.SelectedItem as IconItem)!.IconPath;
+            try
+            {
+                if (IconListBox.SelectedItem != null)
+                    (EnemyListBox.SelectedItem as CEnemyTemplate)!.IconName = (IconListBox.SelectedItem as IconItem)!.IconPath;
+                //scene.Source = ()(IconListBox.SelectedItem as IconItem)!.IconPath;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка загрузки: {ex.Message}", "Я ЩАС УБЬЮ СЕБЯ");
+            }
         }
 
         private void EnemyListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            IconListBox.SelectedItem = null;
+            //IconListBox.SelectedItem = null;
         }
     }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -9,7 +10,7 @@ using System.Windows.Media.Media3D;
 
 namespace Clicker
 {
-    public class CEnemyTemplate
+    public class CEnemyTemplate : INotifyPropertyChanged
     {
         string name;
         string iconName;
@@ -23,6 +24,13 @@ namespace Clicker
         double goldModifier;
 
         double spawnChance; //Шанс на появление
+
+        //ивент
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         public CEnemyTemplate(string Name, string IconName, int BaseLife, double LifeModifier, int BaseGold, double GoldModifier, double SpawnChance)
         {
@@ -41,7 +49,11 @@ namespace Clicker
         public string Name
         {
             get { return name; }
-            set { name = value; }
+            set
+            {
+                name = value ?? throw new ArgumentNullException(nameof(value));
+                OnPropertyChanged("Name"); ; 
+            }
         }
         
         [JsonInclude]
@@ -49,7 +61,11 @@ namespace Clicker
         public string IconName
         {
             get { return iconName; }
-            set { iconName = value; }
+            set 
+            {
+                iconName = value ?? throw new ArgumentNullException(nameof(value));
+                OnPropertyChanged("IconName");
+            }
         }
         [JsonInclude]
         public int BaseLife

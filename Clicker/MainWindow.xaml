@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Clicker"
         mc:Ignorable="d"
-        Title="Editor_v0.1" Height="423" Width="825">
+        Title="POPAKAKA" Height="423" Width="825">
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -24,7 +24,7 @@
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0" Text="List of enemies:" Height="30"></TextBlock>
-            <ListBox Name="EnemyListBox" Grid.Row="1" Margin="5" ItemsSource="{Binding EnemyList.enemies}" SelectionChanged="EnemyListBox_SelectionChanged"/>
+            <ListBox Name="EnemyListBox" Grid.Row="1" Margin="5" ItemsSource="{Binding EnemyList.enemies}" SelectionChanged="EnemyListBox_SelectionChanged" DisplayMemberPath="Name"/>
             <UniformGrid Grid.Row="2" Columns="2" Height="40">
                 <Button Click="Button_SaveToJson" Content="SAVE" Margin="5,5,4,5"/>
                 <Button Click="Button_LoadFromJson" Content="LOAD" Margin="5"/>
@@ -56,7 +56,7 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Text="Enemy icon:" Width="200" Height="50" Background="White"></TextBlock>
-                    <Canvas Name="scene" Grid.Row="1" Width="100" Height="100" Margin="10" Background="#FFE6E6E6" HorizontalAlignment="Left"></Canvas>
+                    <Image Name="scene" Grid.Row="1" Width="100" Height="100" Margin="10" HorizontalAlignment="Left" Source="{Binding ElementName=EnemyListBox, Path=SelectedItem.IconName}"/>
 
                 </Grid>
 
