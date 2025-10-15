@@ -44,7 +44,7 @@ namespace Clicker
         }
 
         //свойства---------------------------------------------------------
-        
+
         [JsonInclude]
         public string Name
         {
@@ -52,16 +52,19 @@ namespace Clicker
             set
             {
                 name = value ?? throw new ArgumentNullException(nameof(value));
-                OnPropertyChanged("Name"); ; 
+                OnPropertyChanged("Name"); ;
             }
         }
-        
+
         [JsonInclude]
 
         public string IconName
         {
-            get { return iconName; }
-            set 
+            get
+            {
+                return iconName;
+            }
+            set
             {
                 iconName = value ?? throw new ArgumentNullException(nameof(value));
                 OnPropertyChanged("IconName");
@@ -88,7 +91,7 @@ namespace Clicker
         [JsonInclude]
         public double GoldModifier
         {
-            get { return goldModifier; }    
+            get { return goldModifier; }
             set { goldModifier = value; }
         }
         [JsonInclude]

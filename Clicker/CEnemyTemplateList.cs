@@ -64,6 +64,13 @@ namespace Clicker
             return names;
         }
 
+        public List<CEnemyTemplate> Enemies
+        {
+            get
+            {
+                return enemies;
+            }
+        }
         public List<CEnemyTemplate> GetEnemies() { return enemies; }
 
         public void saveToJson(string path)

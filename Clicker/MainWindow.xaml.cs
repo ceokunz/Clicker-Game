@@ -66,13 +66,13 @@ namespace Clicker
             }
 
             IconListBox.ItemsSource = IconList;
-            EnemyListBox.ItemsSource = EnemyList.GetEnemies();
+            EnemyListBox.ItemsSource = EnemyList.Enemies;
         }
 
         private void UpdateEnemiesList()
         {
             EnemyListBox.ItemsSource = null;
-            EnemyListBox.ItemsSource = EnemyList.GetEnemies();
+            EnemyListBox.ItemsSource = EnemyList.Enemies;
         }
 
         public void Load(string path)
@@ -103,8 +103,8 @@ namespace Clicker
             {
                 try
                 {
-                    CEnemyTemplateList enemyList = new CEnemyTemplateList();
-                    enemyList.saveToJson(dlg.FileName);
+                    //CEnemyTemplateList enemyList = new CEnemyTemplateList();
+                    EnemyList.saveToJson(dlg.FileName);
                     MessageBox.Show("Список успешно сохранен", "Хлопаем стоя");
                 }
                 catch (Exception ex)
@@ -124,8 +124,8 @@ namespace Clicker
             {
                 try
                 {
-                    CEnemyTemplateList enemyList = new CEnemyTemplateList();
-                    enemyList.loadFromJson(dlg.FileName);
+                    EnemyList = new CEnemyTemplateList();
+                    EnemyList.loadFromJson(dlg.FileName);
                     UpdateEnemiesList();
                     ClearForm();
                     MessageBox.Show("Список успешно загружен", "Успех");
@@ -154,6 +154,7 @@ namespace Clicker
         private void Button_AddEnemy(object sender, RoutedEventArgs e)
         {
             AddEnemy();
+
         }
 
         private void AddEnemy()
@@ -245,6 +246,7 @@ namespace Clicker
             try
             {
                 if (IconListBox.SelectedItem != null)
+                    if (EnemyListBox.SelectedItem != null)
                     (EnemyListBox.SelectedItem as CEnemyTemplate)!.IconName = (IconListBox.SelectedItem as IconItem)!.IconPath;
                 //scene.Source = ()(IconListBox.SelectedItem as IconItem)!.IconPath;
             }
