@@ -28,7 +28,41 @@ namespace Clicker
         {
 
         }
-
         
+        public void AddGold (BigNumber amount)
+        {
+
+        }
+
+        public bool TryUpgrade()
+        {
+
+        }
+
+        public BigNumber DealDamage()
+        {
+
+        }
+
+        private void RecalculateStats()
+        {
+
+        }
+
+        private BigNumber CalculateNextUpgradeCost()
+        {
+
+        }
+
+        private BigNumber CalculateTotalDamage()
+        {
+
+        }
+
+        private bool TrySpendGold(BigNumber amount)
+        {
+
+        }
+
     }
 }

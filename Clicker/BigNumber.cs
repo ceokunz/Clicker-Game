@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Clicker
 {
-    internal class BigNumber
+    public class BigNumber
     {
         private int[] number;
         private int Base;
