@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 public class Enemy
 {
     private string name;
-    private BigNumber maxHttpoints;
-    private BigNumber currentHttpoints;
+    private BigNumber maxHitpoints;
+    private BigNumber currentHitpoints;
     private BigNumber goldReward;
     private bool isDead;
     private IconItem icon;
@@ -20,10 +20,10 @@ public class Enemy
         set { name = value; }
     }
 
-    public BigNumber MaxHttpoints
+    public BigNumber MaxHitpoints
     {
-        get { return maxHttpoints; }
-        set { maxHttpoints = value; }
+        get { return maxHitpoints; }
+        set { maxHitpoints = value; }
     }
 
     public BigNumber GoldReward
@@ -32,10 +32,10 @@ public class Enemy
         set { goldReward = value; }
     }
 
-    public BigNumber Httpoints
+    public BigNumber Hitpoints
     {
-        get { return currentHttpoints; }
-        set { currentHttpoints = value; }
+        get { return currentHitpoints; }
+        set { currentHitpoints = value; }
     }
 
     public bool IsDead
@@ -51,19 +51,26 @@ public class Enemy
     }
 
 
-    public Enemy(string Name, BigNumber MaxHttpoints, BigNumber GoldReward, BigNumber CurrentHttpoints, bool IsDead, IconItem Icon)
+    public Enemy(string Name, BigNumber MaxHitpoints, BigNumber GoldReward,
+        BigNumber CurrentHitpoints, bool IsDead, IconItem Icon)
     {
         name = Name;
-        maxHttpoints = MaxHttpoints;
+        maxHitpoints = MaxHitpoints;
         goldReward = GoldReward;
-        currentHttpoints = CurrentHttpoints;
+        currentHitpoints = CurrentHitpoints;
         isDead = IsDead;
         icon = Icon;
     }
 
     public bool TakeDamage(BigNumber dmg, out BigNumber GoldReward)
     {
+        //if (Player.Damage)
+        //{
 
+        //}
+
+        GoldReward = new BigNumber("222");
+        return true;
     }
 
     private void Die()

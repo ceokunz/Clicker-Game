@@ -60,15 +60,15 @@ namespace Clicker
             upgradeModifier = UpgradeModifier;
         }
 
-        public bool GainGold(BigNumber amount)
+        public bool AddGold(BigNumber amount)
         {
             gold.Add(amount);
             return true;
         }
 
-        public bool Upgrade()
+        public bool TryUpgrade()
         {
-            if (gold.CompareAbsolute(upgradeCost) >= 0)
+            if (gold > (upgradeCost) >= 0)
             {
                 gold.Subtract(upgradeCost);
                 lvl++;
@@ -81,30 +81,33 @@ namespace Clicker
             return false;
         }
 
-        public BigNumber ApplyDamage(Enemy enemy)
+        public BigNumber DealDamage(Enemy enemy)
         {
-            enemy.TakeDamage(damage);
+            return null;
+            //enemy.TakeDamage(damage);
         }
 
-        //private void RecalculateStats()
-        //{
+        private void RecalculateStats()
+        {
 
-        //}
+        }
 
-        //private BigNumber CalculateNextUpgradeCost()
-        //{
+        private BigNumber CalculateNextUpgradeCost()
+        {
+            return null;
 
-        //}
+        }
 
-        //private BigNumber CalculateTotalDamage()
-        //{
+        private BigNumber CalculateTotalDamage()
+        {
+            throw new NotImplementedException();
+        }
 
-        //}
+        private bool TrySpendGold(BigNumber amount)
+        {
+            throw new NotImplementedException();
 
-        //private bool TrySpendGold(BigNumber amount)
-        //{
-
-        //}
+        }
 
     }
 }
