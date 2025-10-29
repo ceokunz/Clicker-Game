@@ -99,7 +99,6 @@ namespace Clicker
             return new BigNumber(result);
         }
 
-
         public BigNumber Multiply(double multiplier)
         {
             if (multiplier % 1 != 0)
@@ -117,7 +116,6 @@ namespace Clicker
                 carry = product / Base;
             }
 
-            
             int carryIndex = ArrayLength;
             while (carry > 0)
             {
@@ -180,6 +178,31 @@ namespace Clicker
 
             return 0;
         }
+        public static BigNumber operator +(BigNumber a, BigNumber b)
+        {
+            return a.Add(b);
+        }
+        public static BigNumber operator -(BigNumber a, BigNumber b)
+        {
+            return a.Subtract(b);
+        }
+        public static BigNumber operator *(BigNumber a, double b)
+        {
+            return a.Multiply(b);
+        }
+        public static BigNumber operator /(BigNumber a, double b)
+        {
+            return a.Divide(b);
+        }
+        public static bool operator >(BigNumber a, BigNumber b)
+        {
+            return a.CompareTo(b) >0;
+        }
+        public static bool operator <(BigNumber a, BigNumber b)
+        {
+            return a.CompareTo(b) <0;
+        }
+
 
         public static 
 
