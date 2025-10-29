@@ -203,8 +203,5 @@ namespace Clicker
             return a.CompareTo(b) <0;
         }
 
-
-        public static 
-
     }
 }

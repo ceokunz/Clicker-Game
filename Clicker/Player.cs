@@ -68,7 +68,7 @@ namespace Clicker
 
         public bool TryUpgrade()
         {
-            if (gold > (upgradeCost) >= 0)
+            if ((gold > upgradeCost))
             {
                 gold.Subtract(upgradeCost);
                 lvl++;
