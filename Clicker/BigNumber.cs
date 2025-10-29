@@ -8,173 +8,177 @@ namespace Clicker
 {
     public class BigNumber
     {
-        private List<int> digits;
-        private const int Base = 1000;
+        private int[] number;
+        private const int Base = 10;
+        public int ArrayLength => number.Length;
 
-        public BigNumber(string numberStr = "0")
-        {
-            digits = new List<int>();
-            ParseString(numberStr);
-        }
-
-        //парсит строку в число
-        private void ParseString(string numberStr)
+        public BigNumber(string numberStr)
         {
             if (string.IsNullOrEmpty(numberStr))
+                throw new ArgumentException("Number string cannot be null or empty");
+            numberStr = numberStr.TrimStart('0');
+            if (string.IsNullOrEmpty(numberStr))
+                numberStr = "0";
+
+            number = new int[numberStr.Length];
+            for (int i = 0; i < numberStr.Length; i++)
             {
-                digits.Add(0);
-                return;
-            }
+                if (!char.IsDigit(numberStr[i]))
+                    throw new ArgumentException("Invalid character in number string");
 
-            numberStr = numberStr.Replace(" ", "");
-
-            for (int i = numberStr.Length; i > 0; i -= 3)
-            {
-                int start = Math.Max(0, i - 3);
-                int length = Math.Min(3, i - start);
-                string digitStr = numberStr.Substring(start, length);
-
-                if (int.TryParse(digitStr, out int digit))
-                {
-                    digits.Add(digit);
-                }
-            }
-
-            RemoveLeadingZeros();
-        }
-
-        //удаляет ведущие нули
-        private void RemoveLeadingZeros()
-        {
-            while (digits.Count > 1 && digits.Last() == 0)
-            {
-                digits.RemoveAt(digits.Count - 1);
+                number[i] = numberStr[i] - '0';
             }
         }
 
-        //возвращает строковое представление числа
-        public string GetStringNumber()
+        private BigNumber(int[] digits)
         {
-            if (digits.Count == 0) return "0";
-
-            var result = new StringBuilder();
-
-            for (int i = digits.Count - 1; i >= 0; i--)
-            {
-                if (i == digits.Count - 1)
-                    result.Append(digits[i]);
-                else
-                    result.Append(digits[i].ToString("D3"));
-
-                if (i > 0) result.Append(" ");
-            }
-
-            return result.ToString();
+            number = TrimLeadingZeros(digits);
         }
 
-        //сложение больших чисел
-        public void Add(BigNumber other)
+        public BigNumber Clone()
         {
-            int maxLength = Math.Max(digits.Count, other.digits.Count);
+            int[] clonedArray = new int[number.Length];
+            Array.Copy(number, clonedArray, number.Length);
+            return new BigNumber(clonedArray);
+        }
+
+        public override string ToString()
+        {
+            return string.Join("", number);
+        }
+
+        public BigNumber Add(BigNumber bnum)
+        {
+            int maxLength = Math.Max(ArrayLength, bnum.ArrayLength);
+            int[] result = new int[maxLength + 1];
             int carry = 0;
 
-            for (int i = 0; i < maxLength || carry > 0; i++)
+            for (int i = 0; i < maxLength; i++)
             {
-                if (i == digits.Count) digits.Add(0);
+                int digit1 = i < ArrayLength ? number[ArrayLength - 1 - i] : 0;
+                int digit2 = i < bnum.ArrayLength ? bnum.number[bnum.ArrayLength - 1 - i] : 0;
 
-                int currentDigit = digits[i] + carry;
-                if (i < other.digits.Count) currentDigit += other.digits[i];
-
-                carry = currentDigit / Base;
-                digits[i] = currentDigit % Base;
+                int sum = digit1 + digit2 + carry;
+                result[result.Length - 1 - i] = sum % Base;
+                carry = sum / Base;
             }
 
-            RemoveLeadingZeros();
+            result[0] = carry;
+
+            return new BigNumber(result);
         }
 
-        //вычитание больших чисел
-        public void Subtract(BigNumber other)
+        public BigNumber Subtract(BigNumber bnum)
         {
-            if (CompareAbsolute(other) < 0)
-            {
-                digits = new List<int> { 0 };
-                return;
-            }
+            if (CompareTo(bnum) < 0)
+                throw new InvalidOperationException("Result would be negative");
 
+            int[] result = new int[ArrayLength];
             int borrow = 0;
-            for (int i = 0; i < digits.Count; i++)
-            {
-                int currentDigit = digits[i] - borrow;
-                if (i < other.digits.Count) currentDigit -= other.digits[i];
 
-                if (currentDigit < 0)
+            for (int i = 0; i < ArrayLength; i++)
+            {
+                int digit1 = number[ArrayLength - 1 - i];
+                int digit2 = i < bnum.ArrayLength ? bnum.number[bnum.ArrayLength - 1 - i] : 0;
+
+                int diff = digit1 - digit2 - borrow;
+                if (diff < 0)
                 {
+                    diff += Base;
                     borrow = 1;
-                    currentDigit += Base;
                 }
                 else
                 {
                     borrow = 0;
                 }
 
-                digits[i] = currentDigit;
+                result[result.Length - 1 - i] = diff;
             }
 
-            RemoveLeadingZeros();
+            return new BigNumber(result);
         }
 
-        //умножение на дробный множитель
-        public void Multiply(double multiplier)
+
+        public BigNumber Multiply(double multiplier)
         {
-            if (multiplier == 1.0) return;
+            if (multiplier % 1 != 0)
+                throw new ArgumentException("Multiplier must be integer for BigNumber operations");
 
-            double result = 0;
-            double basePower = 1;
+            long multiplierLong = (long)multiplier;
 
-            for (int i = 0; i < digits.Count; i++)
+            int[] result = new int[ArrayLength + 20]; 
+            long carry = 0;
+
+            for (int i = 0; i < ArrayLength; i++)
             {
-                result += digits[i] * basePower;
-                basePower *= Base;
+                long product = number[ArrayLength - 1 - i] * multiplierLong + carry;
+                result[result.Length - 1 - i] = (int)(product % Base);
+                carry = product / Base;
             }
 
-            result *= multiplier;
-
-            digits.Clear();
-
-            if (result < 1)
+            
+            int carryIndex = ArrayLength;
+            while (carry > 0)
             {
-                digits.Add(0);
-                return;
+                result[result.Length - 1 - carryIndex] = (int)(carry % Base);
+                carry /= Base;
+                carryIndex++;
             }
 
-            while (result >= 1)
-            {
-                digits.Add((int)(result % Base));
-                result = Math.Floor(result / Base);
-            }
-
-            RemoveLeadingZeros();
+            return new BigNumber(result);
         }
 
-        //сравнение абсолютных значений
-        public int CompareAbsolute(BigNumber other)
+        public BigNumber Divide(double divisor)
         {
-            if (digits.Count != other.digits.Count)
-                return digits.Count.CompareTo(other.digits.Count);
+            if (divisor == 0)
+                throw new DivideByZeroException("Division by zero");
 
-            for (int i = digits.Count - 1; i >= 0; i--)
+            if (divisor % 1 != 0)
+                throw new ArgumentException("Divisor must be integer for BigNumber operations");
+
+            long divisorLong = (long)divisor;
+            int[] result = new int[ArrayLength];
+            long remainder = 0;
+
+            for (int i = 0; i < ArrayLength; i++)
             {
-                if (digits[i] != other.digits[i])
-                    return digits[i].CompareTo(other.digits[i]);
+                long current = remainder * Base + number[i];
+                result[i] = (int)(current / divisorLong);
+                remainder = current % divisorLong;
+            }
+
+            return new BigNumber(result);
+        }
+
+        private int[] TrimLeadingZeros(int[] arr)
+        {
+            int startIndex = 0;
+            while (startIndex < arr.Length - 1 && arr[startIndex] == 0)
+            {
+                startIndex++;
+            }
+
+            if (startIndex == 0)
+                return arr;
+
+            int[] result = new int[arr.Length - startIndex];
+            Array.Copy(arr, startIndex, result, 0, result.Length);
+            return result;
+        }
+
+        private int CompareTo(BigNumber bnum)
+        {
+            if (ArrayLength != bnum.ArrayLength)
+                return ArrayLength.CompareTo(bnum.ArrayLength);
+
+            for (int i = 0; i < ArrayLength; i++)
+            {
+                if (number[i] != bnum.number[i])
+                    return number[i].CompareTo(bnum.number[i]);
             }
 
             return 0;
         }
 
-        //проверка на ноль
-        public bool IsZero()
-        {
-            return digits.Count == 1 && digits[0] == 0;
-        }
     }
 }

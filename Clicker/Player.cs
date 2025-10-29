@@ -50,48 +50,61 @@ namespace Clicker
             set { upgradeModifier = value; }
         }
 
-        public Player(int Lvl, BigNumber Gold, BigNumber Damage, double DamageModifier)
+        public Player(int Lvl, BigNumber Gold, BigNumber Damage, double DamageModifier, BigNumber UpgradeCost, double UpgradeModifier)
         {
-            lvl = Lvl;
+            lvl = 1;
             gold = Gold;
             damage = Damage;
             damageModifier = DamageModifier;
+            upgradeCost = UpgradeCost;
+            upgradeModifier = UpgradeModifier;
         }
-        
-        public void AddGold (BigNumber amount)
+
+        public bool GainGold(BigNumber amount)
         {
-
+            gold.Add(amount);
+            return true;
         }
 
-        public bool TryUpgrade()
+        public bool Upgrade()
         {
+            if (gold.CompareAbsolute(upgradeCost) >= 0)
+            {
+                gold.Subtract(upgradeCost);
+                lvl++;
 
+                damage.Multiply(damageModifier);
+                upgradeCost.Multiply(upgradeModifier);
+
+                return true;
+            }
+            return false;
         }
 
-        public BigNumber DealDamage()
+        public BigNumber ApplyDamage(Enemy enemy)
         {
-
+            enemy.TakeDamage(damage);
         }
 
-        private void RecalculateStats()
-        {
+        //private void RecalculateStats()
+        //{
 
-        }
+        //}
 
-        private BigNumber CalculateNextUpgradeCost()
-        {
+        //private BigNumber CalculateNextUpgradeCost()
+        //{
 
-        }
+        //}
 
-        private BigNumber CalculateTotalDamage()
-        {
+        //private BigNumber CalculateTotalDamage()
+        //{
 
-        }
+        //}
 
-        private bool TrySpendGold(BigNumber amount)
-        {
+        //private bool TrySpendGold(BigNumber amount)
+        //{
 
-        }
+        //}
 
     }
 }

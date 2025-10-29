@@ -32,7 +32,7 @@ public class Enemy
         set { goldReward = value; }
     }
 
-    public BigNumber CurrentHttpoints
+    public BigNumber Httpoints
     {
         get { return currentHttpoints; }
         set { currentHttpoints = value; }
@@ -63,12 +63,12 @@ public class Enemy
 
     public bool TakeDamage(BigNumber dmg, out BigNumber GoldReward)
     {
-        
+
     }
 
     private void Die()
     {
-       
+
     }
 }
 

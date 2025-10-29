@@ -9,7 +9,7 @@
         >
 
     <Window.Resources>
-        <local:ImagePathToImageSourceConverter x:Key="ImagePathToImageSourceConverter"/>
+        <!--<local:ImagePathToImageSourceConverter x:Key="ImagePathToImageSourceConverter"/>-->
     </Window.Resources>
     
     <Grid>
